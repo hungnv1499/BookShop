@@ -1,0 +1,67 @@
+﻿@page
+@model BookLibrarySystem.Pages.Order.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+@section Styles {
+    @{await Html.RenderPartialAsync("_TemplateStylePartial");}
+
+}
+<h1>Details</h1>
+
+<div>
+    <h4>Orders</h4>
+    <hr />
+    <div class="col-md-12">
+        <div class="accordion-container padding-vertical-100">
+            <ul>
+                @foreach (var item in Model.OrderDetail)
+                {
+                    <li class="set">
+                        <a href="#">@item.Book.BookName </a>
+                        <div class="content" style="">
+                            @*<p>+ Unit Price: @item.Book.UnitPrice | Quantity: @item.Quantity | Total Price: @item.TotalPrice</p>*@
+                            <table>
+                                <tr class="row">
+                                    <td class="col-md-4">
+                                        <img class="shopping-product" src="~/images/@item.Book.Image" asp-append-version="true" style="height:100px;width:auto;">
+                                    </td >
+                                    <td class="product-name col-md-2">
+                                        <p>@item.Book.BookName</p>
+                                    </td>
+                                    <!-- /product-name -->
+                                    <td class="product-detail col-md-2">
+                                        <p>
+                                            @item.Book.Description
+                                        </p>
+                                    </td>
+                                    <!-- /product-detail -->
+                                    <td class="product-price col-md-2">
+                                        <h5>@item.Book.UnitPrice VND</h5>
+                                    </td>
+                                    <!-- /product-price -->
+                                    
+                                    <td class="product-price col-md-2">
+                                        <h5 id="total-price">@(item.Book.UnitPrice*item.Quantity) VND</h5>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- /content -->
+                    </li>
+                }
+
+                <!-- /set -->
+                <!-- /set -->
+            </ul>
+        </div>
+        <!-- /accordion-container -->
+    </div>
+</div>
+        <div>
+            <a asp-page="./Index">Back to List</a>
+        </div>
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_TemplateScriptPartial");}
+        }

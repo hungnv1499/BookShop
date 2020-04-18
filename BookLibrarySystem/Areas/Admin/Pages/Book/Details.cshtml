@@ -1,0 +1,84 @@
+﻿@page
+@model BookLibrarySystem.Areas.Admin.Pages.Book.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    var photoPath = "~/images/" + (Model.Books.Image ?? "default.png");
+
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Books</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <img class="card-img-top" src="@photoPath" asp-append-version="true" />
+        </div>
+        <div class="col-md-8">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Books.BookName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Books.BookName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Books.Description)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Books.Description)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Books.Brand)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Books.Brand.BrandName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Books.Author)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Books.Author.AuthorName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Books.Category)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Books.Category.CategoryName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Books.Quantity)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Books.Quantity)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Books.UnitPrice)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Books.UnitPrice)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Books.DateCreated)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Books.DateCreated)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Books.DateModified)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Books.DateModified)
+                </dd>
+            </dl>
+        </div>
+
+    </div>
+    
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Books.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

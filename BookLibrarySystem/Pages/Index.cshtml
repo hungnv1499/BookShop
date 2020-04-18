@@ -1,0 +1,248 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    var cate = "";
+    if (Model.CateName != "")
+    {
+        cate = ": Mục " + Model.CateName;
+    }
+}
+
+@section Styles {
+    @{await Html.RenderPartialAsync("_TemplateStylePartial");}
+
+}
+<!-- Loader Begin -->
+
+<div class="loader">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+    <p>orise</p>
+</div>
+
+
+
+<div id="back-top">
+    <a href="#" class="scroll">
+        <i class="arrow_carrot-up"></i>
+    </a>
+</div>
+
+
+
+<div class="wrapper">
+    <!-- Page Header End -->
+    <div class="product-filter padding-top-10">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="filter-content padding-horizontal-25">
+                    <span>Page @(Model.PageIndex+1) of @Model.PageNumber @cate</span>
+                    <ol>
+                        <li>
+                            <div class="form-group">
+                                <select name="p_show" id="p_show" class="form-control">
+                                    <option value="">Show</option>
+                                    <option value=""></option>
+                                </select>
+                                <!-- /form-control -->
+                            </div>
+                            <!-- /form-group -->
+                        </li>
+
+                    
+                    </ol>
+                </div>
+                <!-- /filter-content -->
+            </div>
+            <!-- /column -->
+        </div>
+        <!-- /container -->
+    </div>
+    <div class="container padding-vertical-50">
+        <div class="row">
+            <!-- Siderbar -->
+            <div class="col-md-3 col-sm-4 sidebar">
+                <div class="sidebar-search padding-bottom-10">
+                    <h4>Book Search</h4>
+                    <form class="product-search padding-top-40 padding-bottom-5" method="get">
+                        <input type="hidden" asp-for="CateName" />
+
+                        <button class="btn-search" type="submit" title="Search">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <!-- /button -->
+                        <input type="text" class="form-control" asp-for="SearchMessage" placeholder="Search products..." value="@Model.SearchMessage">
+                    </form>
+                    <!-- /product-search -->
+                </div>
+                <!-- /sidebar-search -->
+
+                <div class="product-categories padding-vertical-5">
+                    <h4>Book Categories</h4>
+                    <div class="product-categories-list">
+                        <ul class="padding-top-20">
+                            @foreach (var item in Model.Categories)
+                            {
+                                <li>
+                                    <a asp-route-cate="@item.Name">@item.Name</a><span>@item.Quantity</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <!-- /product-categories-list-->
+                </div>
+                <!-- /product-categories-->
+
+               
+                <div class="color-options padding-vertical-5">
+                    <h4>Color Options</h4>
+                    <div class="color-list">
+                        <ul class="padding-top-20">
+                            <li>
+                                <a href="#">Black</a><span>09</span>
+                            </li>
+                            <li>
+                                <a href="#">White</a><span>12</span>
+                            </li>
+                            <li>
+                                <a href="#">Blue</a><span>56</span>
+                            </li>
+                            <li>
+                                <a href="#">Red</a><span>34</span>
+                            </li>
+                            <li>
+                                <a href="#">Green</a><span>22</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /color-list-->
+                </div>
+                <!-- /color-options-->
+
+                <div class="size-options padding-vertical-5">
+                    <h4>Color Options</h4>
+                    <div class="size-list">
+                        <ul class="padding-top-20">
+                            <li>
+                                <a href="#">L</a><span>12</span>
+                            </li>
+                            <li>
+                                <a href="#">M</a>
+                            </li>
+                            <li>
+                                <a href="#">S</a><span>24</span>
+                            </li>
+                            <li>
+                                <a href="#">XS</a>
+                            </li>
+                            <li>
+                                <a href="#">XL</a><span>15</span>
+                            </li>
+                            <li>
+                                <a href="#">XXL</a>
+                            </li>
+                            <li>
+                                <a href="#">2XXL</a><span>36</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /size-list -->
+                </div>
+                <!-- /size-options -->
+
+                <div class="best-product padding-vertical-5">
+                    <h4>Best Products</h4>
+                    <ul class="padding-top-10">
+                    </ul>
+                </div>
+                <!-- /best-product -->
+            </div>
+            <!-- /sidebar -->
+            <!-- Product Item List Begin -->
+
+            <div class="product-item-list col-md-9 col-sm-8 padding-top-20 text-center">
+                @* product here *@
+                @foreach (var item in Model.Books)
+                {
+                    <partial name="_BookStyleOnePartial" model="item" />
+                }
+                <!-- /column -->
+
+                <div class="pagination padding-top-50 padding-bottom-100">
+                    <ul>
+                        @for (int i = 0; i < @Model.PageNumber; i++)
+                        {
+
+                            <li>
+                                <a asp-page-handler="OnGet" asp-route-index="@i" asp-route-search="@Model.SearchMessage" asp-route-cate="@Model.CateName">@(i+1)</a>
+                            </li>
+                        }
+
+                        @*<li>
+                                <a href=""><i class="fa fa-angle-double-right"></i></a>
+                            </li>*@
+                    </ul>
+                </div>
+
+                <!-- /pagination -->
+            </div>
+            <!-- /product-item-list -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_TemplateScriptPartial");}
+    <script>
+        function AddToCart(id) {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Page("/Cart/Index","AddToCart")",
+                data: {id : id},
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    notifyMe(response);
+                },
+                failure: function (response) {
+                    alert(response);
+                }
+            });
+        }
+        function notifyMe(response) {
+            if (!window.Notification) {
+                console.log('Browser does not support notifications.');
+            } else {
+                // check if permission is already granted
+                if (Notification.permission === 'granted') {
+                    // show notification here
+                    var notify = new Notification('Add to cart', {
+                        body: response
+                    });
+                } else {
+                    // request permission from user
+                    Notification.requestPermission().then(function (p) {
+                        if (p === 'granted') {
+                            // show notification here
+                            var notify = new Notification('Add to cart', {
+                                body: response
+                            });
+                        } else {
+                            console.log('User blocked notifications.');
+                        }
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                }
+            }
+        }
+    </script>
+}

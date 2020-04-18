@@ -1,0 +1,38 @@
+﻿@model Item
+@{
+    var photoPath = "~/images/" + (Model.Book.Image ?? "default.png");
+}
+<tr>
+
+    <td>
+        <img class="shopping-product" src="@photoPath" asp-append-version="true" style="height:100px;width:auto;">
+    </td>
+    <td class="product-name">
+        <p>@Model.Book.BookName</p>
+    </td>
+    <!-- /product-name -->
+    <td class="product-detail">
+        <p>
+            @Model.Book.Description
+        </p>
+    </td>
+    <!-- /product-detail -->
+    <td class="product-price">
+        <h5>@Model.Book.UnitPrice VND</h5>
+    </td>
+    <!-- /product-price -->
+    <td>
+        <div class="input-group">
+            <input type="number" value="@Model.Quantity"  onchange="Update(@Model.Book.ID, this)" style="width:70%;"/>
+            <!-- /input-group-btn-vertical -->
+        </div>
+        <!-- /quantity-number -->
+    </td>
+    <td class="product-price">
+        <h5 id="total-price">@(Model.Book.UnitPrice*Model.Quantity) VND</h5>
+    </td>
+    <!-- /product-price -->
+    <td class="text-left">
+        <a class="btn-close" onclick="DeleteItem(@Model.Book.ID)"><i class="fa fa-close"></i></a>
+    </td>
+</tr>

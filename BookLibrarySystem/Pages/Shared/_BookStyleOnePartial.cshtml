@@ -1,0 +1,62 @@
+﻿@model Books
+@{
+    var photoPath = "~/images/" + (Model.Image ?? "default.png");
+}
+    <div class="col-md-6 col-sm-6">
+        <div class="product-item padding-bottom-60">
+            <div class="product-image">
+                <img src="@photoPath" asp-append-version="true"/>
+                <div class="product_overlay">
+                    <div class="product-cart">
+                        <a href="javascript:void(0)" onclick="AddToCart(@Model.ID)">
+                            <p>+ Add to card</p>
+                        </a>
+                        <div class="product-icons">
+                            <ul>
+                                <li>
+                                    <a href="#" title="favourite"><i class="icon_heart_alt"></i></a>
+                                </li>
+                                <li class="icon-bg-color">
+                                    <a href="#" title="compare"><i class="fa fa-sliders"></i></a>
+                                </li>
+                                <li>
+                                    <a href="product-quick-view.html" class="product-quick-view" title="quickview"><i class="arrow_condense"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /product-icons -->
+                    </div>
+                    <!-- /product-cart -->
+                </div>
+                <!-- /product_overlay -->
+            </div>
+            <!-- /product-image -->
+            <div class="product-short-detail padding-top-20">
+                <div class="product-rate">
+                    <i class="icon_star_alt"></i>
+                    <i class="icon_star_alt"></i>
+                    <i class="icon_star_alt"></i>
+                    <i class="icon_star_alt"></i>
+                    <i class="icon_star_alt not-rated"></i>
+                </div>
+                <!-- /product-rate -->
+                <div class="product-title">
+                    <p>
+                        <a href="#">@Model.BookName</a>
+                    </p>
+                </div>
+                <div class="product-atributes">
+                    <p> Tác giả: @Model.Author.AuthorName - Số lượng: @Model.Quantity</p>
+                </div>
+                <!-- /product-title -->
+                <div class="product-price">
+                    <p><span class="font-weight-bold">@Model.UnitPrice VND</span></p>
+                    <del>@(Model.UnitPrice * 2) VND</del>
+                </div>
+
+                <!-- /product-price -->
+            </div>
+            <!-- /product-short-detail -->
+        </div>
+        <!-- /product-item -->
+    </div>
